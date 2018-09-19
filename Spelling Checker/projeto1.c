@@ -38,7 +38,7 @@ LISTA* inserir(char palavra[],unsigned int hash, LISTA* tabelaH); //insere os el
 
 void check(LISTA* tabelaH[],char texto[]);  //spelling checker
 
-//void imprimir_erro(int Npalavras,char *erros[],int Ntext,double tempo);	 //gera o log de erros
+void imprimir_erro(int Npalavras,char *erros[],int Ntext,double tempo);	 //gera o log de erros
 
 
 int main(int nada,char *arg[]){
@@ -200,11 +200,11 @@ void check(LISTA *tabelaH[],char texto[]){ //checa se a palavra está no diciona
 
 		if(p==NULL){		//se o local a ser conferido esta vazio
 
-				erros[index]= malloc(254 * sizeof(char));
-				sprintf(erros[index], "%d.%s : %d, %d",index, buf, linha,coluna);
+				erros[index]= malloc(254 * sizeof(char)); //aloca espaço para as mensagens de erro
+
+				sprintf(erros[index], "%d.%s : %d, %d",index, buf, linha,coluna); 
 				index++;
-				if(index==temp1)
-				{
+				if(index==temp1){
 					temp1=numtabela+index;
 			    erros = realloc(erros, (temp1) * sizeof(*erros));
 				}
@@ -227,6 +227,7 @@ void check(LISTA *tabelaH[],char texto[]){ //checa se a palavra está no diciona
 timing =timing+ ((clock() - start_time) / ((double)CLOCKS_PER_SEC*0.001));	//termina o contador do tempo e faz o calculo
 
 		char temp=fgetc(arq);	//captura o proximo caractere
+		
 		if(temp=='\n'){			
 			coluna=0;
 			linha++;
@@ -236,29 +237,30 @@ timing =timing+ ((clock() - start_time) / ((double)CLOCKS_PER_SEC*0.001));	//ter
 
 	}
 
-	fclose(arq);
-	if(index!=0)
-		Ptext=index-1;	//pega o indece e transforma no numero de palavras erradas
+	fclose(arq); //fecha arquivo
 
-	Ptext=index;	//pega o indece e transforma no numero de palavras erradas
+	if(index!=0)
+		Ptext=index-1;	//pega o indice e transforma no numero de palavras erradas
+
 	imprimir_erro(palavras,erros,Ptext,timing);
-free(erros);
+
+free(erros); //libera espaço alocado para erros depois de imprimir as informações
 }
 
 
 void imprimir_erro(int Npalavras,char *erros[],int Ntext,double tempo){
-FILE* arq;
-int index;
+	
+	FILE* arq;
+	int index;
 
-	arq = fopen("log.txt", "w");
+	arq = fopen("log.txt", "w"); //abre arquivo .txt para escrever
 
 	fprintf(arq,"Número total de palavras do texto: %d\n",Npalavras);
 	fprintf(arq,"Tempo total da verificação: %.2fms \n",tempo);
 	fprintf(arq,"Número de palavras que falharam no spell check: %d\n",Ntext);
 	fputs("Lista de palavras que falharam no spell check:\n\n",arq);
 	fputs("Num. Ocorrencia ­ Palavra : Linha, Coluna\n----------------------------------------\n",arq);
-	for(index=0;index<Ntext;index++)
-	{
+	for(index=0;index<Ntext;index++){
 		fprintf(arq,"%s\n",erros[index]);
 	}
 
