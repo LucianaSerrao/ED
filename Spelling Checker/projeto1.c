@@ -140,43 +140,56 @@ void imprimir(LISTA* p[]){
 	int cont=0;
 unsigned int soma=0;
 
-	arq = fopen("saida.csv", "w");
+	arq = fopen("saida.csv", "w"); //cvs = excel; colocar .txt para criar arquivo de texto 
+  
+
+  //o "i" e o "cont" funcionam como um for dentro de outro for, fazendo o esquema de linha e coluna, como em uma tabela
+
   while(i!=numtabela){
-    aux = p[i];
+    aux = p[i]; //copiando uma lista em outra auxiliar
     while ( aux != NULL){
-        cont++;
-				aux = aux->prox;
+        cont++; //numero de colunas
+		aux = aux->prox;
     }
 
-    i++;
+    i++; //numero de linhas
 		if(cont==0)
- 	   fprintf(arq, "%d;%d\n", i, cont);
-		else
- 	   fprintf(arq, "%d;%d\n", i, cont-1);
 
-		soma+=cont-1;
-    cont=0;
+		//escrevendo no arquivo .txt numero de linhas e de colunas
+ 	   fprintf(arq, "%d;%d\n", i, cont); 
+		else
+ 	   fprintf(arq, "%d;%d\n", i, cont-1); 
+
+		soma+=cont-1; //numero de palavras ou caracteres, nao entendir
+    cont=0; 
 	}
-fclose(arq);
+fclose(arq); //fechando o arquivo
+
 printf("\nmedia--%f--\n",(float)soma/numtabela);
 }
 
 
-void check(LISTA *tabelaH[],char texto[]){
+void check(LISTA *tabelaH[],char texto[]){ //checa se a palavra está no dicionario que foi transcrevido para uma tabela hash
 	LISTA *p;
 	FILE *arq;
 	int Ptext,index=0,coluna=0,palavras=0,linha=1;
 	unsigned int x=0;
+
+	//nao entendi esse buf alguem explica
 	char *buf = malloc (200);
+
   char ** erros = malloc(numtabela * sizeof(*erros));
-	clock_t start_time;
-double timing=0;
+	
+	clock_t start_time; 
+	double timing=0; //registra tempo de procura
+
 	if((arq=fopen(texto,"r")) == NULL){
 		printf("ERRO 404\n");		//arquivo nao encontrado
 		exit(-1);
 	}
 
 	int temp1=numtabela;
+	
 	while(fscanf(arq,"%s",buf) != EOF){
 		palavras++;
 		coluna++;	//contador de colunas
