@@ -14,8 +14,9 @@ COMPILAR COM "gcc vamos.c -o prog -lm"
 
 
 // OLHAR DESIGNAÇÃO DE FUNÇÃO HASH LA EM BAIXO, VER COMO SE FAZ A CONTA PRA TRATAR DE UMA STRING PARA UM INTEIRO
-// VERIFICAR O QUE É ESSE A
-#define A 0.6180339887
+
+#define A 0.6180339887 //função de hash: função áurea, número de ouro;
+
 
 const int numtabela=61561; 			//tamalho da tabela dicionario=307855;
 
@@ -49,8 +50,8 @@ LISTA *tabela[numtabela];
 unsigned int x;
 char *buf = malloc (200);
 
-arg[1]="dicionario.txt";
-arg[2]="dicionario.txt";
+arg[1]="listinha.txt";
+arg[2]="ascii.txt";
 	zera(tabela);     //inicializa a tabela como NULL
 
 	if((wordfile=fopen(arg[2],"r")) == NULL){ //le arquivo de texto, se não existir entra no if

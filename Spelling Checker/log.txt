@@ -1,0 +1,8 @@
+Número total de palavras do texto: 4
+Tempo total da verificação: 0.02ms 
+Número de palavras que falharam no spell check: 1
+Lista de palavras que falharam no spell check:
+
+Num. Ocorrencia ­ Palavra : Linha, Coluna
+----------------------------------------
+0.bruno : 1, 1
