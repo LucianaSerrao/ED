@@ -65,7 +65,7 @@ arg[2]="ascii.txt";
 	}
 fclose(wordfile);
 
-//imprimir(tabela);			//imprimindo grafico colisões
+imprimir(tabela);			//imprimindo grafico colisões
 
 
 	check(tabela,arg[1]); //spellchecker
